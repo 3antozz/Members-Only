@@ -5,6 +5,7 @@ const pool = require('./db/pool');
 const Store = require('connect-pg-simple')(session);
 const indexRouter = require('./routers/indexRouter');
 const passport = require('passport');
+const authRouter = require('./routers/auth');
 
 
 
@@ -22,7 +23,7 @@ app.use(session({
     cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // 7 days
 }));
 app.use(passport.session());
-require('./routers/auth');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
@@ -35,10 +36,16 @@ app.use((req, res, next) => {
         console.log(req.user);
         res.locals.currentUser = req.user;
     }
+    const messages = req.session.messages || [];
+    res.locals.messages = messages;
+    res.locals.hasMessages = !!messages.length;
+    req.session.messages = [];
     next();
 })
 
 app.use('/', indexRouter);
+app.use('/', authRouter);
+
 
 
 

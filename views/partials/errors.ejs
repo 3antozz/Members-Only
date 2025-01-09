@@ -1,0 +1,14 @@
+<% if(locals.hasMessages) { %>
+    <ul>
+        <% messages.map((message) => {%>
+            <li><%= message %></li>
+        <% }) %>
+    </ul>
+<% } %>
+<% if(locals.errors) { %>
+    <ul>
+        <% errors.map((error) => {%>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+<% } %>
