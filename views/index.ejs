@@ -12,6 +12,25 @@
             <h1>Welcome <%= currentUser.first_name %> <%= currentUser.last_name %></h1>
         <% } %>
         <h2>HELLO THERE!</h2>
+        <section class="messages">
+            <% locals.messages.map((message) => { %>
+                <div class="message">
+                    <div class="info">
+                        <% if(locals.currentUser) {%>
+                            <h2><%= message.first_name %> <%= message.first_name %></h2>
+                            <h3><%= message.time %></h3>
+                        <% } else { %>
+                            <h2>**********</h2>
+                            <h3>*****</h3>
+                        <% } %>
+                    </div>
+                    <div class="content">
+                        <h3><%= message.title %></h3>
+                        <hp><%= message.text %></hp>
+                    </div>
+                </div>
+            <% }) %>
+        </section>
     </main>
 </body>
 </html>

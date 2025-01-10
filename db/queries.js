@@ -20,3 +20,13 @@ exports.AddUser = async (fname, lname, username, password, role='signup') => {
 exports.updateMembership = async (id, membership) => {
     await pool.query("UPDATE users SET membership=$1 WHERE id=$2;", [membership, id]);
 }
+
+exports.addMessage = async (userid, title, message) => {
+    const {rows} = await pool.query("INSERT INTO messages (title, text, time) VALUES ($1, $2, $3) RETURNING id;", [title, message, new Date()]);
+    await pool.query("INSERT INTO user_message (user_id, message_id) VALUES ($1, $2);", [userid, rows[0].id]);
+}
+
+exports.getMessages = async () => {
+    const { rows } = await pool.query("SELECT first_name, last_name, title, text, time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY time;")
+    return rows;
+}

@@ -49,7 +49,17 @@ app.use('/', authRouter);
 
 
 
+app.use((req, res, next) => {
+    const error = new Error('Page not found');
+    error.status = 404;
+    next(error); 
+});
 
-
+app.use((error, req, res, next) => {
+    console.log(error);
+    const statusCode = error.status || 500;
+    res.status(statusCode);
+    return res.render('error');
+})
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

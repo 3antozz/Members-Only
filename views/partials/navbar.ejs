@@ -3,4 +3,7 @@
     <% if(locals.currentUser && locals.currentUser.membership === "signup") { %>
         <a href="/member">Become a member</a>
     <% } %>
+    <% if(locals.currentUser) { %>
+        <a href="/message">Create a new Message</a>
+    <% } %>
 </nav>
