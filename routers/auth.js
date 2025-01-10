@@ -43,14 +43,6 @@ const checkAuth = asyncHandler((req, res, next) => {
     }
 })
 
-const checkMembership = asyncHandler((req, res, next) => {
-    if(['member', 'admin'].includes(req.user.membership)) {
-        next();
-    } else {
-        res.send('You are not authorized to access this page!')
-    }
-})
-
 const isAlreadyMember = asyncHandler((req, res, next) => {
     if(!['member', 'admin'].includes(req.user.membership)) {
         next();

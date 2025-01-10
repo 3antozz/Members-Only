@@ -7,7 +7,11 @@
 </head>
 <body>
     <main>
-        <h1>Oops! An error has occured!</h1>
+        <% if([404, 401].includes(locals.statusCode)) { %>
+            <h1>Error: <%= locals.error %></h1>
+        <% } else { %>
+            <h1>Oops! An error has occured!</h1>
+        <% } %>
         <a href="/">Go back to the homepage</a>
     </main>
 </body>

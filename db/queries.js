@@ -27,6 +27,10 @@ exports.addMessage = async (userid, title, message) => {
 }
 
 exports.getMessages = async () => {
-    const { rows } = await pool.query("SELECT first_name, last_name, title, text, time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY time;")
+    const { rows } = await pool.query("SELECT messages.id, first_name, last_name, title, text, time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY time;")
     return rows;
+}
+
+exports.deleteMessage = async (id) => {
+    await pool.query("DELETE FROM messages WHERE id=$1;", [id]);
 }

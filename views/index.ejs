@@ -23,6 +23,11 @@
                             <h2>**********</h2>
                             <h3>*****</h3>
                         <% } %>
+                        <% if(locals.currentUser && locals.currentUser.membership === "admin") {%>
+                            <form action="/delete/<%= message.id %>" method="post">
+                                <button>Delete</button>
+                            </form>
+                        <% } %>
                     </div>
                     <div class="content">
                         <h3><%= message.title %></h3>

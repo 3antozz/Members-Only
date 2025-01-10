@@ -59,7 +59,7 @@ app.use((error, req, res, next) => {
     console.log(error);
     const statusCode = error.status || 500;
     res.status(statusCode);
-    return res.render('error');
+    return res.render('error', {statusCode: statusCode, error: error.message});
 })
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

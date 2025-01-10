@@ -8,7 +8,19 @@ const checkAuth = asyncHandler((req, res, next) => {
     if(req.isAuthenticated()) {
         next();
     } else {
-        res.send('You need to login to access this page!');
+        const error = new Error('You need to login to access this page');
+        error.status = 401;
+        next(error); 
+    }
+})
+
+const checkAdmin = asyncHandler((req, res, next) => {
+    if(req.isAuthenticated() && req.user.membership === "admin") {
+        next();
+    } else {
+        const error = new Error('You are not authorized to access this page');
+        error.status = 401;
+        next(error); 
     }
 })
 const validateMessage = [
@@ -44,6 +56,12 @@ indexRouter.post('/message', checkAuth, validateMessage, asyncHandler(async(req,
         console.log(error);
         return res.render('message', {title: 'Create a new message', errors: [{msg: error.message}]})
     }
+    res.redirect('/');
+}))
+
+indexRouter.post('/delete/:messageID', checkAdmin, asyncHandler(async (req, res) => {
+    const id = req.params.messageID;
+    await db.deleteMessage(id);
     res.redirect('/');
 }))
 
