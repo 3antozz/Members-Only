@@ -6,9 +6,12 @@
     <title><%= title %></title>
 </head>
 <body>
-    <% if(locals.currentUser) {%>
-        <h1>Welcome <%= currentUser.first_name %> <%= currentUser.last_name %></h1>
-    <% } %>
-    <h2>HELLO THERE!</h2>
+    <main>
+        <%- include('./partials/navbar') %>
+        <% if(locals.currentUser) {%>
+            <h1>Welcome <%= currentUser.first_name %> <%= currentUser.last_name %></h1>
+        <% } %>
+        <h2>HELLO THERE!</h2>
+    </main>
 </body>
 </html>

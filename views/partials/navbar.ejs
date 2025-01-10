@@ -1,0 +1,6 @@
+<nav>
+    <h1>3antoClub</h1>
+    <% if(locals.currentUser && locals.currentUser.membership === "signup") { %>
+        <a href="/member">Become a member</a>
+    <% } %>
+</nav>

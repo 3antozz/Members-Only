@@ -8,15 +8,15 @@
 <body>
     <%- include('./partials/navbar') %>
     <main>
-        <form action="/login" method="post">
+        <form action="/member" method="post">
             <%- include('./partials/errors') %>
             <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <label for="code">Secret Code:</label>
+                <input type="text" id="code" name="secret_code">
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <label for="admin">Do you want to become an admin ?</label>
+                <input type="checkbox" id="admin" name="is_admin" value="admin">
             </div>
             <button>Submit</button>
         </form>

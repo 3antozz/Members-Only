@@ -5,6 +5,7 @@ require("dotenv").config();
 const SQL = `
 
   CREATE EXTENSION IF NOT EXISTS citext;
+  CREATE TYPE user_role AS ENUM ('signup', 'member', 'admin');
 
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -12,8 +13,7 @@ const SQL = `
     last_name VARCHAR (255),
     username CITEXT NOT NULL UNIQUE CHECK (char_length(username) > 0 AND char_length(username) <= 255),
     password VARCHAR (255),
-    isMember BOOLEAN,
-    isAdmin BOOLEAN);
+    membership user_role);
 
   CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
