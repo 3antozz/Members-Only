@@ -13,8 +13,8 @@ exports.getUserByID = async (id) => {
     return rows[0];
 }
 
-exports.AddUser = async (fname, lname, username, password, role='signup') => {
-    await pool.query("INSERT INTO users (first_name, last_name, username, password, role) VALUES ($1, $2, $3, $4, $5);", [fname, lname, username, password, role])
+exports.AddUser = async (fname, lname, username, password, membership='signup') => {
+    await pool.query("INSERT INTO users (first_name, last_name, username, password, membership) VALUES ($1, $2, $3, $4, $5);", [fname, lname, username, password, membership])
 }
 
 exports.updateMembership = async (id, membership) => {
@@ -27,7 +27,7 @@ exports.addMessage = async (userid, title, message) => {
 }
 
 exports.getMessages = async () => {
-    const { rows } = await pool.query("SELECT messages.id, first_name, last_name, title, text, time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY time;")
+    const { rows } = await pool.query("SELECT users.id AS user_id, messages.id, first_name, last_name, title, text, TO_CHAR(time, 'HH:MI DD-MM-YYYY') AS time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY time DESC;")
     return rows;
 }
 

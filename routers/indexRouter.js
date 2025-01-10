@@ -24,7 +24,7 @@ const checkAdmin = asyncHandler((req, res, next) => {
     }
 })
 const validateMessage = [
-    body("message_title").trim().notEmpty().withMessage("Title must not be empty").isLength({min: 5, max: 20}).withMessage('Title must be between 5 and 20 characters'),
+    body("message_title").trim().notEmpty().withMessage("Title must not be empty").isLength({min: 5, max: 35}).withMessage('Title must be between 5 and 20 characters'),
     body("message_text").trim().notEmpty().withMessage("Message must not be empty").isLength({min: 5}).withMessage('Title must be atleast 5 characters long'),
 ];
 

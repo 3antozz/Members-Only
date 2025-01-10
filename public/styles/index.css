@@ -1,0 +1,75 @@
+.messages {
+    padding: 2rem 10vw;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+    row-gap: 2rem;
+    column-gap: 1rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.737);
+    padding-bottom: 0.5rem;
+}
+
+.info h2 {
+    flex: 1;
+}
+
+.content {
+    padding: 0.5rem 0;
+}
+
+.content h2 {
+    padding-bottom: 0.5rem;
+}
+
+.content p {
+    font-size: 1.15rem;
+}
+
+.message {
+    position: relative;
+    padding: 1rem;
+    border: 2px solid rgb(153, 153, 153);
+    border-radius: 10px;
+}
+
+em {
+    color: red;
+}
+
+main > h1 {
+    text-align: center;
+}
+
+
+.own-message {
+    border: 2px solid red;
+ 
+}
+
+.message form {
+    position: absolute;
+    bottom: -3%;
+    right: 0;
+}
+
+.message form button {
+    background: none;
+    border: none;
+    transition: transform 200ms ease;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+}
+
+.message form button svg {
+    fill: red;
+    width: 1.7rem;
+}
+
+.message form button:hover {
+    transform: scale(1.2);
+    background-color: grey;
+}

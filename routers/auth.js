@@ -39,7 +39,9 @@ const checkAuth = asyncHandler((req, res, next) => {
     if(req.isAuthenticated()) {
         next();
     } else {
-        res.send('You need to login to access this page!');
+        const error = new Error('You need to login to access this page');
+        error.status = 401;
+        next(error); 
     }
 })
 
@@ -47,14 +49,14 @@ const isAlreadyMember = asyncHandler((req, res, next) => {
     if(!['member', 'admin'].includes(req.user.membership)) {
         next();
     } else {
-        res.send('You are already a member of the club!')
+        res.redirect('/');
     }
 })
 
 const validateSignUp = [
-    body("first_name").trim().notEmpty().withMessage("First Name must not be empty").isAlpha().withMessage("First Name must only contain alphabet and no spaces"),
-    body("last_name").trim().notEmpty().withMessage("Last Name must not be empty").isAlpha().withMessage("First Name must only contain alphabet and no spaces"),
-    body("username").trim().notEmpty().withMessage("Username must not be empty").isAlphanumeric().withMessage("First Name must only contain alphabet and numbers and no spaces"),
+    body("first_name").trim().notEmpty().withMessage("First Name must not be empty").isAlpha().withMessage("First Name must only contain alphabet and no spaces").isLength({min: 2, max: 12}).withMessage("Password must be between 2 and 12 characters"),
+    body("last_name").trim().notEmpty().withMessage("Last Name must not be empty").isAlpha().withMessage("First Name must only contain alphabet and no spaces").isLength({min: 2, max: 12}).withMessage("Password must be between 2 and 12 characters"),
+    body("username").trim().notEmpty().withMessage("Username must not be empty").isAlphanumeric().withMessage("First Name must only contain alphabet and numbers and no spaces").isLength({min: 2, max: 12}).withMessage("Password must be between 2 and 12 characters"),
     body("password").trim().notEmpty().withMessage("Password must not be empty").isLength({min: 6}).withMessage("Password must be atleast 6 characters long"),
     body('confirm_password').custom((value, { req }) => {
         return value === req.body.password;
@@ -62,7 +64,7 @@ const validateSignUp = [
 ];
 
 const validateLogin = [
-    body("username").trim().notEmpty().withMessage("Username must not be empty").isAlphanumeric().withMessage("Incorrect username")
+    body("username").trim().notEmpty().withMessage("Username must not be empty").isAlphanumeric().withMessage("Incorrect username").isLength({min: 2, max: 12}).withMessage("Incorrect username")
 ];
 
 const validateMembership = [
@@ -85,7 +87,12 @@ authRouter.post('/sign-up', validateSignUp, asyncHandler(async (req, res, next) 
         if(error) {
             return next(error);
         }
-        await db.AddUser(first_name, last_name, username, hashedPassword);
+        try {
+            await db.AddUser(first_name, last_name, username, hashedPassword);
+        } catch(error) {
+            console.log(error);
+            return res.render('sign-up', {title: 'Sign Up', errors: [{msg: "An unexpcted error has occured, please try again later."}]})
+        }
         res.redirect('/');
     })
 }))
@@ -129,7 +136,7 @@ authRouter.post('/member', checkAuth, validateMembership, asyncHandler(async (re
         await db.updateMembership(id, is_admin);
     } catch(error) {
         console.log(error);
-        return res.render('member', {title: 'Become a member', errors: [{msg: error.message}]})
+        return res.render('member', {title: 'Become a member', errors: [{msg: "An unexpcted error has occured, please try again later."}]})
     }
     res.redirect('/');
 }))
