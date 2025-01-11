@@ -26,7 +26,11 @@ exports.addMessage = async (userid, title, message) => {
     await pool.query("INSERT INTO user_message (user_id, message_id) VALUES ($1, $2);", [userid, rows[0].id]);
 }
 
+<<<<<<< HEAD
 exports.getMessages = async () => {
+=======
+exports.getmember_messages = async () => {
+>>>>>>> 48533156d352895ddaa04649574a17119e1b2af6
     const { rows } = await pool.query("SELECT users.id AS user_id, member_messages.id, first_name, last_name, title, text, member_messages.time, TO_CHAR(time, 'HH:MI DD-MM-YYYY') AS time FROM member_messages JOIN user_message ON member_messages.id=message_id JOIN users ON users.id=user_id ORDER BY member_messages.time DESC;")
     return rows;
 }
