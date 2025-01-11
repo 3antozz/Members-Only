@@ -1,10 +1,10 @@
 const { Client } = require("pg");
 require("dotenv").config();
 
-
 const SQL = `
 
   CREATE EXTENSION IF NOT EXISTS citext;
+
   CREATE TYPE user_role AS ENUM ('signup', 'member', 'admin');
 
   CREATE TABLE IF NOT EXISTS users (

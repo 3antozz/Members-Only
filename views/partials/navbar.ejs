@@ -1,10 +1,10 @@
 <nav>
     <a href="/" class="brand"><h1>3antoClub</h1></a>
     <% if(locals.currentUser && locals.currentUser.membership === "signup") { %>
-        <a href="/member">Become a member</a>
+        <a href="/member">Become member</a>
     <% } %>
     <% if(locals.currentUser) { %>
-        <a href="/message">Create a new Message</a>
+        <a href="/message">New Message</a>
         <div class="log">
             <a href="/logout">Logout</a>
         </div>

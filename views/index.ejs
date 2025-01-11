@@ -14,19 +14,22 @@
         <% if(locals.currentUser) {%>
             <h1>Welcome <em><%= currentUser.first_name %> <%= currentUser.last_name %> (<%=currentUser.username%>)</em> !</h1>
         <% } %>
+        <% if(locals.messages.length === 0) { %>
+            <h1>No messages posted!</h1>
+        <% } %>
         <section class="messages">
             <% locals.messages.map((message) => { %>
                 <div class="<%= locals.currentUser && locals.currentUser.id === message.user_id ? 'message own-message' : 'message' %>">
                     <div class="info">
                         <% if(locals.currentUser && (locals.currentUser.membership !== "signup" || locals.currentUser.id === message.user_id) ) {%>
-                            <h2><%= message.first_name %> <%= message.first_name %></h2>
+                            <h2><%= message.first_name %> <%= message.last_name %></h2>
                             <h3><%= message.time %></h3>
                             <% if(locals.currentUser.id === message.user_id) { %>
                             <p class="you">You</p>
                             <% } %>
                         <% } else { %>
-                            <h2>**********</h2>
-                            <h3>*****</h3>
+                            <h2>[author hidden]</h2>
+                            <h3>[timestamp]</h3>
                         <% } %>
                     </div>
                     <div class="content">

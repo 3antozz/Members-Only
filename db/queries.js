@@ -27,7 +27,7 @@ exports.addMessage = async (userid, title, message) => {
 }
 
 exports.getMessages = async () => {
-    const { rows } = await pool.query("SELECT users.id AS user_id, messages.id, first_name, last_name, title, text, TO_CHAR(time, 'HH:MI DD-MM-YYYY') AS time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY time DESC;")
+    const { rows } = await pool.query("SELECT users.id AS user_id, messages.id, first_name, last_name, title, text, messages.time, TO_CHAR(time, 'HH:MI DD-MM-YYYY') AS time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY messages.time DESC;")
     return rows;
 }
 

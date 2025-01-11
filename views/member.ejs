@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/navbar.css">
+    <link rel="stylesheet" href="./styles/forms.css">
 </head>
 <body>
     <%- include('./partials/navbar') %>
     <main>
+        <h1>Join the club!</h1>
         <form action="/member" method="post">
             <%- include('./partials/errors') %>
             <div>
                 <label for="code">Secret Code:</label>
-                <input type="text" id="code" name="secret_code">
+                <input type="password" id="code" name="secret_code">
             </div>
-            <div>
-                <label for="admin">Do you want to become an admin ?</label>
+            <div class="admin">
+                <label for="admin">Become an admin ?</label>
                 <input type="checkbox" id="admin" name="is_admin" value="admin">
             </div>
             <button>Submit</button>
