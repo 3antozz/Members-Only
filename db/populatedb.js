@@ -15,7 +15,7 @@ const SQL = `
     password VARCHAR (255),
     membership user_role);
 
-  CREATE TABLE IF NOT EXISTS messages (
+  CREATE TABLE IF NOT EXISTS member_messages (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR (255),
     text TEXT,
@@ -24,7 +24,7 @@ const SQL = `
 
   CREATE TABLE IF NOT EXISTS user_message (
     user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
-    message_id INTEGER REFERENCES messages (id) ON DELETE CASCADE,
+    message_id INTEGER REFERENCES member_messages (id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, message_id));
     `;
 

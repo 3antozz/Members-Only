@@ -22,15 +22,15 @@ exports.updateMembership = async (id, membership) => {
 }
 
 exports.addMessage = async (userid, title, message) => {
-    const {rows} = await pool.query("INSERT INTO messages (title, text, time) VALUES ($1, $2, $3) RETURNING id;", [title, message, new Date()]);
+    const {rows} = await pool.query("INSERT INTO member_messages (title, text, time) VALUES ($1, $2, $3) RETURNING id;", [title, message, new Date()]);
     await pool.query("INSERT INTO user_message (user_id, message_id) VALUES ($1, $2);", [userid, rows[0].id]);
 }
 
 exports.getMessages = async () => {
-    const { rows } = await pool.query("SELECT users.id AS user_id, messages.id, first_name, last_name, title, text, messages.time, TO_CHAR(time, 'HH:MI DD-MM-YYYY') AS time FROM messages JOIN user_message ON messages.id=message_id JOIN users ON users.id=user_id ORDER BY messages.time DESC;")
+    const { rows } = await pool.query("SELECT users.id AS user_id, member_messages.id, first_name, last_name, title, text, member_messages.time, TO_CHAR(time, 'HH:MI DD-MM-YYYY') AS time FROM member_messages JOIN user_message ON member_messages.id=message_id JOIN users ON users.id=user_id ORDER BY member_messages.time DESC;")
     return rows;
 }
 
 exports.deleteMessage = async (id) => {
-    await pool.query("DELETE FROM messages WHERE id=$1;", [id]);
+    await pool.query("DELETE FROM member_messages WHERE id=$1;", [id]);
 }
