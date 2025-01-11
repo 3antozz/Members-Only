@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/navbar.css">
+    <link rel="stylesheet" href="./styles/forms.css">
 </head>
 <body>
     <%- include('./partials/navbar') %>
     <main>
+        <h1>Login</h1>
         <form action="/login" method="post">
             <%- include('./partials/errors') %>
             <div>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" minlength="3" maxlength="20" required>
             </div>
             <div>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" minlength="6" required>
             </div>
-            <button>Submit</button>
+            <button>Login</button>
         </form>
     </main>
 </body>

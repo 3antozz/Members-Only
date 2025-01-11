@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Error</title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/navbar.css">
+    <link rel="stylesheet" href="./styles/error.css">
 </head>
 <body>
+    <%- include('./partials/navbar') %>
     <main>
         <% if([404, 401].includes(locals.statusCode)) { %>
             <h1>Error: <%= locals.error %></h1>
         <% } else { %>
             <h1>Oops! An error has occured!</h1>
         <% } %>
-        <a href="/">Go back to the homepage</a>
+        <a href="/">Go back to homepage</a>
     </main>
 </body>
 </html>

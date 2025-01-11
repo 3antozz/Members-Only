@@ -24,8 +24,8 @@ const checkAdmin = asyncHandler((req, res, next) => {
     }
 })
 const validateMessage = [
-    body("message_title").trim().notEmpty().withMessage("Title must not be empty").isLength({min: 5, max: 35}).withMessage('Title must be between 5 and 20 characters'),
-    body("message_text").trim().notEmpty().withMessage("Message must not be empty").isLength({min: 5}).withMessage('Title must be atleast 5 characters long'),
+    body("message_title").trim().notEmpty().withMessage("Title must not be empty").isLength({min: 5, max: 55}).withMessage('Title must be between 5 and 55 characters'),
+    body("message_text").trim().notEmpty().withMessage("Message must not be empty").isLength({min: 5, max: 140}).withMessage('Title must be between 5 and 140 characters long'),
 ];
 
 indexRouter.get('/', asyncHandler(async(req, res, next) => {

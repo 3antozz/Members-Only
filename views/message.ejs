@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/navbar.css">
+    <link rel="stylesheet" href="./styles/forms.css">
 </head>
 <body>
     <%- include('./partials/navbar') %>
     <main>
+        <h1>Post a message</h1>
         <form action="/message" method="post">
             <%- include('./partials/errors') %>
             <div>
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="message_title">
+                <input type="text" id="title" name="message_title" minlength="5" maxlength="55" required>
             </div>
             <div>
                 <label for="text">Message:</label>
-                <textarea id="text" name="message_text"></textarea>
+                <textarea id="text" name="message_text" minlength="5" maxlength="140" required></textarea>
             </div>
             <button>Submit</button>
         </form>

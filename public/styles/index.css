@@ -29,6 +29,16 @@
     font-size: 1.15rem;
 }
 
+.you {
+    position: absolute;
+    top: -10%;
+    left: -3%;
+    background-color: rgb(107, 80, 241);
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 4px 8px;
+}
+
 .message {
     position: relative;
     padding: 1rem;
@@ -72,4 +82,5 @@ main > h1 {
 .message form button:hover {
     transform: scale(1.2);
     background-color: grey;
+    cursor: pointer;
 }

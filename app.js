@@ -34,7 +34,6 @@ app.use(express.urlencoded({extended: true}));
 app.use((req, res, next) => {
     if(req.user) {
         res.locals.currentUser = req.user;
-        console.log(res.locals.currentUser);
     }
     const messages = req.session.messages || [];
     res.locals.messages = messages;
