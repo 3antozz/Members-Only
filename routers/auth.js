@@ -64,7 +64,7 @@ const isAlreadyMember = asyncHandler((req, res, next) => {
 const validateSignUp = [
     body("first_name").trim().notEmpty().withMessage("First Name must not be empty").isAlpha().withMessage("First Name must only contain alphabet and no spaces").isLength({min: 2, max: 20}).withMessage("Password must be between 2 and 20 characters"),
     body("last_name").trim().notEmpty().withMessage("Last Name must not be empty").isAlpha().withMessage("Last Name must only contain alphabet and no spaces").isLength({min: 2, max: 20}).withMessage("Password must be between 2 and 20 characters"),
-    body("username").trim().notEmpty().withMessage("Username must not be empty").isAlphanumeric({ ignore: '_' }).withMessage("Username must only contain alphabet and numbers and no spaces").isLength({min: 3, max: 20}).withMessage("Password must be between 3 and 20 characters"),
+    body("username").trim().notEmpty().withMessage("Username must not be empty").matches(/^[a-zA-Z0-9_]+$/).withMessage("Username must only contain alphabet and numbers and no spaces").isLength({min: 3, max: 20}).withMessage("Password must be between 3 and 20 characters"),
     body("password").trim().notEmpty().withMessage("Password must not be empty").isLength({min: 6}).withMessage("Password must be atleast 6 characters long"),
     body('confirm_password').custom((value, { req }) => {
         return value === req.body.password;
@@ -72,7 +72,7 @@ const validateSignUp = [
 ];
 
 const validateLogin = [
-    body("username").trim().notEmpty().withMessage("Username must not be empty").isAlphanumeric({ ignore: '_' }).withMessage("Incorrect username").isLength({min: 3, max: 20}).withMessage("Incorrect username")
+    body("username").trim().notEmpty().withMessage("Username must not be empty").matches(/^[a-zA-Z0-9_]+$/).withMessage("Incorrect username").isLength({min: 3, max: 20}).withMessage("Incorrect username")
 ];
 
 const validateMembership = [
