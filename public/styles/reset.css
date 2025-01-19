@@ -19,6 +19,7 @@ body {
     flex-direction: column;
     background-color: #0e0e10;
     color: white;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 main {
