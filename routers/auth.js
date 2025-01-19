@@ -101,7 +101,10 @@ authRouter.post('/sign-up', validateSignUp, asyncHandler(async (req, res, next) 
             await db.AddUser(first_name, last_name, username, hashedPassword);
         } catch(error) {
             console.log(error);
-            return res.render('sign-up', {title: 'Sign Up', errors: [{msg: "An unexpcted error has occured, please try again later."}]})
+            if (error.code === '23505') {
+                error.msg = 'This username already exists, please try another one'
+            }
+            return res.render('sign-up', {title: 'Sign Up', errors: [{msg: error.msg}]})
         }
         res.redirect('/login');
     })
