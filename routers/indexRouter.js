@@ -50,6 +50,9 @@ indexRouter.post('/message', checkAuth, validateMessage, asyncHandler(async(req,
     }
     const { message_title, message_text } = req.body;
     const id = req.user.id;
+    console.log(message_title);
+    console.log(message_text);
+    console.log(id);
     try {
         await db.addMessage(id, message_title, message_text);
     } catch(error) {

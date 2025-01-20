@@ -23,6 +23,7 @@ exports.updateMembership = async (id, membership) => {
 
 exports.addMessage = async (userid, title, message) => {
     const {rows} = await pool.query("INSERT INTO member_messages (title, text, time) VALUES ($1, $2, $3) RETURNING id;", [title, message, new Date()]);
+    console.log(rows);
     await pool.query("INSERT INTO user_message (user_id, message_id) VALUES ($1, $2);", [userid, rows[0].id]);
 }
 
