@@ -62,21 +62,21 @@ const isAlreadyMember = asyncHandler((req, res, next) => {
 })
 
 const validateSignUp = [
-    body("first_name").trim().notEmpty().withMessage("First Name must not be empty").isAlpha().withMessage("First Name must only contain alphabet and no spaces").isLength({min: 2, max: 20}).withMessage("Password must be between 2 and 20 characters"),
-    body("last_name").trim().notEmpty().withMessage("Last Name must not be empty").isAlpha().withMessage("Last Name must only contain alphabet and no spaces").isLength({min: 2, max: 20}).withMessage("Password must be between 2 and 20 characters"),
-    body("username").trim().notEmpty().withMessage("Username must not be empty").matches(/^[a-zA-Z0-9_]+$/).withMessage("Username must only contain alphabet and numbers and no spaces").isLength({min: 3, max: 20}).withMessage("Password must be between 3 and 20 characters"),
-    body("password").trim().notEmpty().withMessage("Password must not be empty").isLength({min: 6}).withMessage("Password must be atleast 6 characters long"),
+    body("first_name").trim().notEmpty().withMessage("First Name must not be empty").bail().isAlpha().withMessage("First Name must only contain alphabet and no spaces").isLength({min: 2, max: 20}).withMessage("First name must be between 2 and 20 characters"),
+    body("last_name").trim().notEmpty().withMessage("Last Name must not be empty").bail().isAlpha().withMessage("Last Name must only contain alphabet and no spaces").isLength({min: 2, max: 20}).withMessage("Last name must be between 2 and 20 characters"),
+    body("username").trim().notEmpty().withMessage("Username must not be empty").bail().matches(/^[a-zA-Z0-9_]+$/).withMessage("Username must only contain alphabet and numbers and no spaces").isLength({min: 3, max: 20}).withMessage("Username must be between 3 and 20 characters"),
+    body("password").trim().notEmpty().withMessage("Password must not be empty").bail().isLength({min: 6}).withMessage("Password must be atleast 6 characters long"),
     body('confirm_password').custom((value, { req }) => {
         return value === req.body.password;
       }).withMessage("Passwords don't match")
 ];
 
 const validateLogin = [
-    body("username").trim().notEmpty().withMessage("Username must not be empty").matches(/^[a-zA-Z0-9_]+$/).withMessage("Incorrect username").isLength({min: 3, max: 20}).withMessage("Incorrect username")
+    body("username").trim().notEmpty().withMessage("Username must not be empty").bail().matches(/^[a-zA-Z0-9_]+$/).withMessage("Incorrect username").isLength({min: 3, max: 20}).withMessage("Incorrect username")
 ];
 
 const validateMembership = [
-    body("secret_code").trim().notEmpty().withMessage("Code must not be empty").equals(process.env.MEMBERSHIP_CODE).withMessage("Incorrect Code")
+    body("secret_code").trim().notEmpty().withMessage("Code must not be empty").bail().equals(process.env.MEMBERSHIP_CODE).withMessage("Incorrect Code")
 ];
 
 
